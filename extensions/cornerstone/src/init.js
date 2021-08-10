@@ -142,7 +142,6 @@ export default function init({ servicesManager, configuration }) {
     );
     csTools.addTool(tool, props);
   });
-
   // TODO -> We need a better way to do this with maybe global tool state setting all tools passive.
   const BaseAnnotationTool = csTools.importInternal('base/BaseAnnotationTool');
   tools.forEach(tool => {

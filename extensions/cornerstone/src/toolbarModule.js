@@ -237,6 +237,15 @@ const definitions = [
     commandName: 'setCornerstoneLayout',
     context: 'ACTIVE_VIEWPORT::VTK',
   },
+  {
+    id: 'SetPoint',
+    label: 'Set Point',
+    icon: 'plus',
+    //
+    type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+    commandName: 'setPoint',
+    // commandOptions: { toolName: 'Pan' },
+  },
 ];
 
 export default {

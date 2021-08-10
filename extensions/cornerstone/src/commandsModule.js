@@ -294,6 +294,9 @@ const commandsModule = ({ servicesManager }) => {
         refreshCornerstoneViewports();
       }
     },
+    setPoint: () => {
+      alert("Hello, world!");
+    },
   };
 
   const definitions = {
@@ -407,6 +410,11 @@ const commandsModule = ({ servicesManager }) => {
     setWindowLevel: {
       commandFn: actions.setWindowLevel,
       storeContexts: ['viewports'],
+      options: {},
+    },
+    setPoint: {
+      commandFn: actions.setPoint,
+      storeContexts: [],
       options: {},
     },
   };
