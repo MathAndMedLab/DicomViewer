@@ -15,6 +15,18 @@ export default function(configuration = {}) {
   cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
   cornerstoneTools.init(configuration);
 
+  const ProbeTool = cornerstoneTools.ProbeTool;
+  const EraserTool = cornerstoneTools.EraserTool;
+  cornerstoneTools.addTool(ProbeTool);
+  cornerstoneTools.addTool(EraserTool);
+  // cornerstoneTools.setToolActive('Probe', { mouseButtonMask: 1 });
+
+  // function SetPoint(){
+  //   alert("hi, World!");
+  // }
+  // cornerstoneTools.addTool(SetPoint);
+  // cornerstoneTools.setToolActive('SetPoint', {mouseButtonMask: 1});
+
   cornerstoneTools.loadHandlerManager.setErrorLoadingHandler(
     (element, imageId, error) => {
       log.error(imageId);

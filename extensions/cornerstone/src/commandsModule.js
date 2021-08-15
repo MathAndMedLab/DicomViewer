@@ -294,9 +294,9 @@ const commandsModule = ({ servicesManager }) => {
         refreshCornerstoneViewports();
       }
     },
-    setPoint: () => {
-      alert("Hello, world!");
-    },
+    // setPoint: () => {
+    //   alert("Hello, world!");
+    // },
   };
 
   const definitions = {
@@ -412,11 +412,11 @@ const commandsModule = ({ servicesManager }) => {
       storeContexts: ['viewports'],
       options: {},
     },
-    setPoint: {
-      commandFn: actions.setPoint,
-      storeContexts: [],
-      options: {},
-    },
+    // setPoint: {
+    //   commandFn: actions.setPoint,
+    //   storeContexts: [],
+    //   options: {},
+    // },
   };
 
   return {

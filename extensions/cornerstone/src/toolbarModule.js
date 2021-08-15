@@ -207,6 +207,15 @@ const definitions = [
         commandName: 'clearAnnotations',
       },
       {
+        id: 'Eraser',
+        label: 'Eraser',
+        icon: 'eraser',
+        //
+        type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+        commandName: 'setToolActive',
+        commandOptions: { toolName: 'Eraser' },
+      },
+      {
         id: 'Bidirectional',
         label: 'Bidirectional',
         icon: 'measure-target',
@@ -238,13 +247,13 @@ const definitions = [
     context: 'ACTIVE_VIEWPORT::VTK',
   },
   {
-    id: 'SetPoint',
-    label: 'Set Point',
-    icon: 'plus',
+    id: 'Probe',
+    label: 'Set point',
+    icon: 'dot-circle',
     //
     type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
-    commandName: 'setPoint',
-    // commandOptions: { toolName: 'Pan' },
+    commandName: 'setToolActive',
+    commandOptions: { toolName: 'Probe' },
   },
 ];
 

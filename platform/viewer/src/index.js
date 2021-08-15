@@ -50,7 +50,6 @@ if (window) {
 const appProps = {
   config,
   defaultExtensions: [
-
     OHIFVTKExtension,
     OHIFDicomHtmlExtension,
     OHIFDicomMicroscopyExtension,
