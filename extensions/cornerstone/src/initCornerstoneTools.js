@@ -3,6 +3,7 @@ import cornerstone from 'cornerstone-core';
 import cornerstoneMath from 'cornerstone-math';
 import cornerstoneTools from 'cornerstone-tools';
 import OHIF from '@ohif/core';
+import PointTool from './PointTool'
 
 const { log } = OHIF;
 
@@ -15,10 +16,9 @@ export default function(configuration = {}) {
   cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
   cornerstoneTools.init(configuration);
 
-  const ProbeTool = cornerstoneTools.ProbeTool;
+  //const ProbeTool = cornerstoneTools.ProbeTool;
   const EraserTool = cornerstoneTools.EraserTool;
-  cornerstoneTools.addTool(ProbeTool);
-  cornerstoneTools.addTool(EraserTool);
+  //cornerstoneTools.addTool(ProbeTool);
   // cornerstoneTools.setToolActive('Probe', { mouseButtonMask: 1 });
 
   // function SetPoint(){
@@ -53,4 +53,7 @@ export default function(configuration = {}) {
     preserveExistingPool: false,
     maxSimultaneousRequests: 20,
   });
+
+  cornerstoneTools.addTool(EraserTool);
+  cornerstoneTools.addTool(PointTool);
 }

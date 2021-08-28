@@ -1,7 +1,7 @@
 import cornerstone from 'cornerstone-core';
 import cornerstoneTools from 'cornerstone-tools';
 import OHIF from '@ohif/core';
-
+import Save from './SavePoints';
 import setCornerstoneLayout from './utils/setCornerstoneLayout.js';
 import { getEnabledElement } from './state';
 import CornerstoneViewportDownloadForm from './CornerstoneViewportDownloadForm';
@@ -294,9 +294,50 @@ const commandsModule = ({ servicesManager }) => {
         refreshCornerstoneViewports();
       }
     },
-    // setPoint: () => {
-    //   alert("Hello, world!");
-    // },
+    savePoints: ({viewports}) => {
+      const enabledElement = getEnabledElement(viewports.activeViewportIndex);
+      if(enabledElement)
+      {
+        //Point tool
+        const toolData = cornerstoneTools.getToolState(enabledElement, 'Point');
+        let points = [[],[]];
+        if(toolData) 
+        {         
+          for (let i = 0; i < toolData.data.length; i++) {
+              const data = toolData.data[i];
+              const { x, y, storedPixels, sp, mo, suv } = data.cachedStats;
+              points[0].push({xcoord: x, ycoord: y});                      
+          }    
+          console.log(points);
+          // let jsonPoints = JSON.stringify(points);
+          // console.log(jsonPoints);
+          // Save(jsonPoints, 'data.json', 'text/plain');
+        
+        }
+        
+        //FreehandRoi tool
+        const toolDataFHR = cornerstoneTools.getToolState(enabledElement, 'FreehandRoi');
+        if (toolDataFHR)
+        {
+          console.log(toolDataFHR);
+          for (let i = 0; i < toolDataFHR.data.length; i++) {
+            const data = toolDataFHR.data[i];
+            points[1].push({area: data.area}); 
+          }
+        }
+
+        if((points[0].length == 0) && (points[1].length == 0))
+        {
+          alert('Draw "Set Point" or "FreehandRoi" ');
+        }
+        else
+        {
+          let jsonPoints = JSON.stringify(points);
+          Save(jsonPoints, 'data.json', 'text/plain');
+        }
+      }
+      else return;
+    },
   };
 
   const definitions = {
@@ -412,11 +453,11 @@ const commandsModule = ({ servicesManager }) => {
       storeContexts: ['viewports'],
       options: {},
     },
-    // setPoint: {
-    //   commandFn: actions.setPoint,
-    //   storeContexts: [],
-    //   options: {},
-    // },
+    savePoints: {
+      commandFn: actions.savePoints,
+      storeContexts: ['viewports'],
+      options: {},
+    },
   };
 
   return {

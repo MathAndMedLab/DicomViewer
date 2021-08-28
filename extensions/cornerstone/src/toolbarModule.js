@@ -247,13 +247,30 @@ const definitions = [
     context: 'ACTIVE_VIEWPORT::VTK',
   },
   {
-    id: 'Probe',
+    id: 'Point',
     label: 'Set point',
     icon: 'dot-circle',
     //
     type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
     commandName: 'setToolActive',
-    commandOptions: { toolName: 'Probe' },
+    commandOptions: { toolName: 'Point' },
+  },
+  {
+    id: 'FreehandRoi',
+    label: 'FreehandRoi',
+    icon: 'circle-notch',
+    //
+    type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
+    commandName: 'setToolActive',
+    commandOptions: { toolName: 'FreehandRoi' },
+  },
+  {
+    id: 'Save',
+    label: 'Save',
+    icon: 'reset',
+    //
+    type: TOOLBAR_BUTTON_TYPES.COMMAND,
+    commandName: 'savePoints',
   },
 ];
 

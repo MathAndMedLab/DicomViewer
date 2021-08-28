@@ -35,7 +35,7 @@ import OHIFDicomTagBrowserExtension from '@ohif/extension-dicom-tag-browser';
 // Add this for Debugging purposes:
 import OHIFDebuggingExtension from '@ohif/extension-debugging';
 import { version } from '../package.json';
-import VtkViewport from '@vtk-viewport';
+// import VtkViewport from '@vtk-viewport';
 
 /*
  * Default Settings
@@ -58,7 +58,7 @@ const appProps = {
     OHIFDicomRtExtension,
     OHIFDebuggingExtension,
     OHIFDicomTagBrowserExtension,
-    VtkViewport,
+   // VtkViewport,
   ],
 };
 
