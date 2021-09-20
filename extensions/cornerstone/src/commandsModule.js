@@ -85,6 +85,19 @@ const commandsModule = ({ servicesManager }) => {
       }
       cornerstoneTools.setToolActive(toolName, { mouseButtonMask: 1 });
     },
+    setToolActiePan: ({ toolName }) => {
+      if (!toolName) {
+        console.warn('No toolname provided to setToolActive command');
+      }
+      cornerstoneTools.setToolPassive('FreehandRoi', { mouseButtonMask: 1 });
+      cornerstoneTools.setToolActive(toolName, { mouseButtonMask: 1 });
+    },
+    setToolDisabled: ({ toolName }) => {
+      if (!toolName) {
+        console.warn('No toolname provided to setToolActive command');
+      }
+      cornerstoneTools.setToolPassive(toolName, { mouseButtonMask: 1 });
+    },
     clearAnnotations: ({ viewports }) => {
       const element = getEnabledElement(viewports.activeViewportIndex);
       if (!element) {
@@ -294,49 +307,50 @@ const commandsModule = ({ servicesManager }) => {
         refreshCornerstoneViewports();
       }
     },
-    savePoints: ({viewports}) => {
+    savePoints: ({ viewports }) => {
       const enabledElement = getEnabledElement(viewports.activeViewportIndex);
-      if(enabledElement)
-      {
-        //Point tool
-        const toolData = cornerstoneTools.getToolState(enabledElement, 'Point');
-        let points = [[],[]];
-        if(toolData) 
-        {         
-          for (let i = 0; i < toolData.data.length; i++) {
-              const data = toolData.data[i];
-              const { x, y, storedPixels, sp, mo, suv } = data.cachedStats;
-              points[0].push({xcoord: x, ycoord: y});                      
-          }    
-          console.log(points);
-          // let jsonPoints = JSON.stringify(points);
-          // console.log(jsonPoints);
-          // Save(jsonPoints, 'data.json', 'text/plain');
-        
-        }
-        
-        //FreehandRoi tool
-        const toolDataFHR = cornerstoneTools.getToolState(enabledElement, 'FreehandRoi');
-        if (toolDataFHR)
-        {
-          console.log(toolDataFHR);
-          for (let i = 0; i < toolDataFHR.data.length; i++) {
-            const data = toolDataFHR.data[i];
-            points[1].push({area: data.area}); 
+      if (enabledElement) {
+        const stateStack = cornerstoneTools.getToolState(
+          enabledElement,
+          'stack'
+        );
+        const dataStack = stateStack.data[0].imageIds;
+        // Going through the entire stack
+        let FreeHandData = {
+          SlicesFreeHand: [],
+          SlicesPoint: [],
+        };
+        dataStack.forEach(function(item, i, dataStack) {
+          let FreeHand = cornerstoneTools.globalImageIdSpecificToolStateManager.getImageIdToolState(
+            item,
+            'FreehandRoi'
+          );
+          if (FreeHand) {
+            FreeHandData.SlicesFreeHand[i] = FreeHand.data;
           }
-        }
+          let Point = cornerstoneTools.globalImageIdSpecificToolStateManager.getImageIdToolState(
+            item,
+            'Point'
+          );
+          if (Point) {
+            FreeHandData.SlicesPoint[i] = Point.data;
+          }
+        });
 
-        if((points[0].length == 0) && (points[1].length == 0))
-        {
-          alert('Draw "Set Point" or "FreehandRoi" ');
-        }
-        else
-        {
-          let jsonPoints = JSON.stringify(points);
+        console.log(FreeHandData);
+        // const Data = cornerstoneTools.globalImageIdSpecificToolStateManager.saveToolState();
+        if (
+          FreeHandData.SlicesFreeHand.length == 0 &&
+          FreeHandData.SlicesPoint.length == 0
+        ) {
+          alert(
+            'Сначала используйте инструменты "Поставить точку" или "Рисование от руки"'
+          );
+        } else {
+          let jsonPoints = JSON.stringify(FreeHandData);
           Save(jsonPoints, 'data.json', 'text/plain');
         }
-      }
-      else return;
+      } else return;
     },
   };
 
@@ -455,6 +469,16 @@ const commandsModule = ({ servicesManager }) => {
     },
     savePoints: {
       commandFn: actions.savePoints,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    setToolDisabled: {
+      commandFn: actions.setToolDisabled,
+      storeContexts: ['viewports'],
+      options: {},
+    },
+    setToolActivePan: {
+      commandFn: actions.setToolActiePan,
       storeContexts: ['viewports'],
       options: {},
     },

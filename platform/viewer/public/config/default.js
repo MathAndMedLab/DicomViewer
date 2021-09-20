@@ -69,7 +69,7 @@ window.config = {
       keys: ['pageup'],
     },
     // ~ Cornerstone Tools
-    { commandName: 'setZoomTool', label: 'Zoom', keys: ['z'] },
+    { commandName: 'setZoomTool', label: 'Zoom', keys: ['esc'] },
     // ~ Window level presets
     {
       commandName: 'windowLevelPreset1',

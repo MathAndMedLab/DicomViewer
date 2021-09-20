@@ -2,7 +2,7 @@ import csTools from 'cornerstone-tools';
 const BaseAnnotationTool = csTools.importInternal('base/BaseAnnotationTool');
 // Drawing
 const getNewContext = csTools.importInternal('drawing/getNewContext');
-const draw = csTools.importInternal('drawing/draw')
+const draw = csTools.importInternal('drawing/draw');
 const drawTextBox = csTools.importInternal('drawing/drawTextBox');
 const drawHandles = csTools.importInternal('drawing/drawHandles');
 // Utilities
@@ -107,7 +107,9 @@ export default class PointTool extends BaseAnnotationTool {
       data.handles.end
     );
 
-    return csTools.external.cornerstoneMath.point.distance(probeCoords, coords) < 5;
+    return (
+      csTools.external.cornerstoneMath.point.distance(probeCoords, coords) < 5
+    );
   }
 
   updateCachedStats(image, element, data) {
@@ -152,7 +154,8 @@ export default class PointTool extends BaseAnnotationTool {
     const context = getNewContext(eventData.canvasContext.canvas);
     const { image, element } = eventData;
     const fontHeight = csTools.textStyle.getFontSize();
-    const lineDash = csTools.getModule('globalConfiguration').configuration.lineDash;
+    const lineDash = csTools.getModule('globalConfiguration').configuration
+      .lineDash;
 
     for (let i = 0; i < toolData.data.length; i++) {
       const data = toolData.data[i];
@@ -221,7 +224,7 @@ export default class PointTool extends BaseAnnotationTool {
             textCoords.y + fontHeight + 5,
             color
           );
-           drawTextBox(context, text, textCoords.x, textCoords.y, color);
+          drawTextBox(context, text, textCoords.x, textCoords.y, color);
         }
       });
     }
@@ -230,7 +233,7 @@ export default class PointTool extends BaseAnnotationTool {
 
 const BaseTool = csTools.importInternal('base/BaseTool');
 
-export  class HelloWorldTool extends BaseTool {
+export class HelloWorldTool extends BaseTool {
   constructor(name = 'HelloWorld') {
     super({
       name,

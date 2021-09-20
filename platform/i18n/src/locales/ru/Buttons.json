@@ -40,5 +40,9 @@
   "Stack Scroll": "Прокрутка серии",
   "Stop": "$t(Common:Stop)",
   "Themes": "Темы",
-  "Zoom": "Лупа"
+  "Zoom": "Лупа",
+  "Free Hand": "Рисование от руки",
+  "Set point": "Поставить точку",
+  "Tag Browser": "Теги",
+  "Eraser": "Резинка"
 }

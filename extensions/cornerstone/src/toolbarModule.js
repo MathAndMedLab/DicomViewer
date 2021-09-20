@@ -68,7 +68,7 @@ const definitions = [
     icon: 'arrows',
     //
     type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
-    commandName: 'setToolActive',
+    commandName: 'setToolActivePan',
     commandOptions: { toolName: 'Pan' },
   },
   {
@@ -257,7 +257,7 @@ const definitions = [
   },
   {
     id: 'FreehandRoi',
-    label: 'FreehandRoi',
+    label: 'Free Hand',
     icon: 'circle-notch',
     //
     type: TOOLBAR_BUTTON_TYPES.SET_TOOL_ACTIVE,
