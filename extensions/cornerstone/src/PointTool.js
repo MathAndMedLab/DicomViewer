@@ -10,22 +10,7 @@ const getRGBPixels = csTools.importInternal('util/getRGBPixels');
 const calculateSUV = csTools.importInternal('util/calculateSUV');
 const getLogger = csTools.importInternal('util/getLogger');
 const throttle = csTools.importInternal('util/throttle');
-
 const logger = getLogger('tools:annotation:ProbeTool');
-// const probeCursor = new MouseCursor(
-//   `<path fill="ACTIVE_COLOR" d="M1152 896q0 106-75 181t-181 75-181-75-75-181 75-181 181-75 181 75
-//     75 181zm-256-544q-148 0-273 73t-198 198-73 273 73 273 198 198 273 73 273-73
-//     198-198 73-273-73-273-198-198-273-73zm768 544q0 209-103 385.5t-279.5
-//     279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5
-//     385.5-103 385.5 103 279.5 279.5 103 385.5z"
-//   />`,
-//   {
-//     viewBox: {
-//       x: 1792,
-//       y: 1792,
-//     },
-//   }
-// );
 
 /**
  * @public
@@ -75,6 +60,7 @@ export default class PointTool extends BaseAnnotationTool {
           y: eventData.currentPoints.image.y,
           highlight: true,
           active: true,
+          annotation: '',
         },
       },
     };
@@ -140,6 +126,20 @@ export default class PointTool extends BaseAnnotationTool {
 
     data.cachedStats = stats;
     data.invalidated = false;
+  }
+
+  doubleClickCallback(evt) {
+    const element = evt.detail.element;
+    const coords = evt.detail.currentPoints.canvas;
+    const toolState = csTools.getToolState(element, this.name);
+    let annotateString = prompt('Enter your annotation');
+    for (let i = 0; i < toolState.data.length; i++) {
+      const data = toolState.data[i];
+      if (this.pointNearTool(element, data, coords)) {
+        data.handles.end.annotation = annotateString;
+        return true;
+      }
+    }
   }
 
   renderToolData(evt) {
@@ -224,33 +224,22 @@ export default class PointTool extends BaseAnnotationTool {
             textCoords.y + fontHeight + 5,
             color
           );
-          drawTextBox(context, text, textCoords.x, textCoords.y, color);
+          drawTextBox(
+            context,
+            text,
+            textCoords.x,
+            textCoords.y + fontHeight + 20,
+            color
+          );
+          drawTextBox(
+            context,
+            data.handles.end.annotation,
+            textCoords.x,
+            textCoords.y,
+            color
+          );
         }
       });
     }
-  }
-}
-
-const BaseTool = csTools.importInternal('base/BaseTool');
-
-export class HelloWorldTool extends BaseTool {
-  constructor(name = 'HelloWorld') {
-    super({
-      name,
-      supportedInteractionTypes: ['Mouse'],
-      mixins: ['activeOrDisabledBinaryTool'],
-    });
-  }
-
-  preMouseDownCallback(evt) {
-    console.log('Hello cornerstoneTools!');
-  }
-
-  activeCallback(element) {
-    console.log(`Hello element ${element.uuid}!`);
-  }
-
-  disabledCallback(element) {
-    console.log(`Goodbye element ${element.uuid}!`);
   }
 }
