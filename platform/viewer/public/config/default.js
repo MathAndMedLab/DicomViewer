@@ -9,6 +9,7 @@ window.config = {
     dicomWeb: [
       {
         name: 'DCM4CHEE',
+        // Здесь пишутся url своего pacs сервера
         wadoUriRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado',
         qidoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
         wadoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',

@@ -315,41 +315,45 @@ const commandsModule = ({ servicesManager }) => {
           'stack'
         );
         const dataStack = stateStack.data[0].imageIds;
-        // Going through the entire stack
-        let FreeHandData = {
+        // Object to storage our tools data of stack
+        let dataTools = {
           SlicesFreeHand: [],
-          SlicesPoint: [],
+          SlicesPoints: [],
         };
-        dataStack.forEach(function(item, i, dataStack) {
+        // Loop through the entire stack
+        dataStack.forEach(function(item, i) {
           let FreeHand = cornerstoneTools.globalImageIdSpecificToolStateManager.getImageIdToolState(
             item,
             'FreehandRoi'
           );
           if (FreeHand) {
-            FreeHandData.SlicesFreeHand[i] = FreeHand.data;
+            // Add all arrays of point in Slice number i
+            dataTools.SlicesFreeHand[i] = [];
+            // It's array of Freehand objects
+            FreeHand.data.forEach(function(element, j) {
+              let pointsData = element.handles.points;
+              dataTools.SlicesFreeHand[i][j] = [];
+              // It's array of points
+              pointsData.forEach(function(element, index) {
+                dataTools.SlicesFreeHand[i][j][index] = {x: element.x, y: element.y};
+              });
+            });
           }
-          let Point = cornerstoneTools.globalImageIdSpecificToolStateManager.getImageIdToolState(
+          let Points = cornerstoneTools.globalImageIdSpecificToolStateManager.getImageIdToolState(
             item,
             'Point'
           );
-          if (Point) {
-            FreeHandData.SlicesPoint[i] = Point.data;
+          if (Points) {
+            // Add all arrays of point in Slice number i
+            dataTools.SlicesPoints[i] = [];
+            // It's array of Points
+            Points.data.forEach(function(element, j) {
+              dataTools.SlicesPoints[i][j] = {x: element.handles.end.x, y: element.handles.end.x};
+            });
           }
         });
-
-        console.log(FreeHandData);
-        // const Data = cornerstoneTools.globalImageIdSpecificToolStateManager.saveToolState();
-        if (
-          FreeHandData.SlicesFreeHand.length == 0 &&
-          FreeHandData.SlicesPoint.length == 0
-        ) {
-          alert(
-            'Сначала используйте инструменты "Поставить точку" или "Рисование от руки"'
-          );
-        } else {
-          let jsonPoints = JSON.stringify(FreeHandData);
-          Save(jsonPoints, 'data.json', 'text/plain');
-        }
+        let jsonData = JSON.stringify(dataTools, null, 2);
+        Save(jsonData, 'data.json', 'text/plain');
       } else return;
     },
   };

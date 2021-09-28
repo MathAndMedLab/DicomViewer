@@ -50,7 +50,7 @@ ENV QUICK_BUILD true
 #ENV PROXY_DOMAIN http://localhost:8042
 
 # ENV GENERATE_SOURCEMAP=false
-ENV APP_CONFIG=config/default.js
+ENV REACT_APP_CONFIG=config/default.js
 
 RUN yarn run build
 
