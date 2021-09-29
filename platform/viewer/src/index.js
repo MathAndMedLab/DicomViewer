@@ -30,12 +30,9 @@ import OHIFDicomRtExtension from '@ohif/extension-dicom-rt';
 import OHIFDicomMicroscopyExtension from '@ohif/extension-dicom-microscopy';
 import OHIFDicomPDFExtension from '@ohif/extension-dicom-pdf';
 import OHIFDicomTagBrowserExtension from '@ohif/extension-dicom-tag-browser';
-// import OHIFDicomDrawPoint from '/Viewers/extensions/dicom-draw-point/src/index.js';
-//import OHIFDicomTagBrowserExtension from '@ohif/extension-dicom-tag-browser';
 // Add this for Debugging purposes:
-import OHIFDebuggingExtension from '@ohif/extension-debugging';
+//import OHIFDebuggingExtension from '@ohif/extension-debugging';
 import { version } from '../package.json';
-// import VtkViewport from '@vtk-viewport';
 
 /*
  * Default Settings
@@ -56,9 +53,8 @@ const appProps = {
     OHIFDicomPDFExtension,
     OHIFDicomSegmentationExtension,
     OHIFDicomRtExtension,
-    OHIFDebuggingExtension,
+    // OHIFDebuggingExtension,
     OHIFDicomTagBrowserExtension,
-   // VtkViewport,
   ],
 };
 
